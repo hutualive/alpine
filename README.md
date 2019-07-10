@@ -64,7 +64,7 @@ sudo dd if=./ssbl/u-boot-dk2.stm32 of=/dev/loop2p3 bs=1M conv=fdatasync
 
 inside the alpine directory, I uploaded the kernel, device tree, initramfs, modloop, apks for dk2 for your convenience:
 
-apks is extracted from the generic arm package downloaded from https://www.alpinelinux.org/downloads/ under armv7 
+apks is extracted from the generic arm package downloaded from https://www.alpinelinux.org/downloads/ under armv7, you can try with armhf too.
 
 sudo mkfs.ext4 -L alpine /dev/loop2p4
 
