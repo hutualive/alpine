@@ -44,47 +44,42 @@ below is the summary of partitions and filesystem type:
 
 sudo losetup -Pf alpine-sd-dk2.img
 
-//ps: here in my case the image file mounted as /dev/loop18 with 4 partitions  
+//ps: here in my case the image file mounted as /dev/loop2 with 4 partitions  
 
 # populate fsbl
 
 inside the fsbl directory, I uploaded st official tf-a firmware for dk2 for your convenience:
 
-sudo dd if=./fsbl/tf-a-dk2.stm32 of=/dev/loop18p1 bs=1M conv=fdatasync  
+sudo dd if=./fsbl/tf-a-dk2.stm32 of=/dev/loop2p1 bs=1M conv=fdatasync  
 
-sudo dd if=./fsbl/tf-a-dk2.stm32 of=/dev/loop18p2 bs=1M conv=fdatasync
+sudo dd if=./fsbl/tf-a-dk2.stm32 of=/dev/loop2p2 bs=1M conv=fdatasync
 
 # populate ssbl
 
 inside the ssbl directory, I uploaded u-boot firmware for dk2 for your convenience: 
 
-sudo dd if=./ssbl/u-boot-dk2.stm32 of=/dev/loop18p3 bs=1M conv=fdatasync
+sudo dd if=./ssbl/u-boot-dk2.stm32 of=/dev/loop2p3 bs=1M conv=fdatasync
 
 # prepare raw boot+root file system
 
-sudo mkfs.ext4 -L alpine /dev/loop18p4
-
-# clean up and flash the sd card image
-
-sudo losetup -d /dev/loop18
-
-sudo dd if=./alpine-sd-dk2.img of=/dev/sdb bs=8M conv=fdatasync
-
-# populate boot + root file system
-
-insert the sd card into pc, you will have boot+root file system named alpine as normal usb drive.
-
 inside the alpine directory, I uploaded the kernel, device tree, initramfs, modloop, apks for dk2 for your convenience:
-
-rsync -avx ./alpine/ /media/dp/alpine
 
 apks is extracted from the generic arm package downloaded from https://www.alpinelinux.org/downloads/ under armv7 
 
+sudo mkfs.ext4 -L alpine /dev/loop2p4
+
+sudo mount -t ext4 /dev/loop2p4 /mnt
+
+rsync -avx ./alpine/ /mnt/
+
+sudo umount /mnt
+
+# clean up
+
+sudo losetup -d /dev/loop2
+
 # wrap up
-write back the whole system to raw sd card image for future replication
 
-sudo dd if=/dev/sdb of=./alpine-sd-dk2.img bs=8M conv=fdatasync
-
-next time you just need refer to quick start guide to bring up alpine linux with one command.
+go back to quick start guide to flash your image
 
 have fun :)
