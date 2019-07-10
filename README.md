@@ -60,7 +60,7 @@ inside the ssbl directory, I uploaded u-boot firmware for dk2 for your convenien
 
 sudo dd if=./ssbl/u-boot-dk2.stm32 of=/dev/loop2p3 bs=1M conv=fdatasync
 
-# prepare raw boot+root file system
+# populate boot and root file system
 
 inside the alpine directory, I uploaded the kernel, device tree, initramfs, modloop, apks for dk2 for your convenience:
 
