@@ -1,5 +1,5 @@
 # background
-alpine linux is popular in docker, but the simple, small design also promising for embedded world. so I'm giving it a try to bootstrap to stm32mp1 discovery kit.
+alpine linux is popular in docker, but the simple, small design also promising for embedded world. so I'm giving it a try to bootstrap to stm32mp1 discovery kit(dk2).
 the main drawback compare to other distributions is less documents, so hope here can help you a little bit to run alpine on armv7 soc like stm32mp1.
 
 # quick start guide
